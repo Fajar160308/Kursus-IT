@@ -24,7 +24,6 @@
     h2 {
       text-align: center;
       color: #22d3ee;
-      margin-bottom: 15px;
     }
     p {
       font-size: 13px;
@@ -34,13 +33,14 @@
     label {
       font-size: 14px;
     }
-    input, textarea, button {
+    input, textarea, button, a {
       width: 100%;
       margin-top: 5px;
       margin-bottom: 15px;
       padding: 8px;
       border-radius: 5px;
       border: none;
+      box-sizing: border-box;
     }
     input, textarea {
       background: #020617;
@@ -49,7 +49,7 @@
     }
     textarea {
       resize: none;
-      height: 70px;
+      height: 60px;
     }
     button {
       background: #22d3ee;
@@ -65,13 +65,21 @@
       text-align: center;
       color: #4ade80;
     }
+    .wa-link {
+      display: inline-block;
+      background: #22c55e;
+      color: #020617;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
 <div class="card">
   <h2>Kursus IT Gratis</h2>
-  <p>Sesi awal gratis untuk menyesuaikan materi</p>
+  <p>Sesi awal gratis untuk penyesuaian materi</p>
 
   <form id="kursusForm">
     <label>Nama Lengkap</label>
@@ -80,18 +88,22 @@
     <label>No WhatsApp</label>
     <input type="text" id="wa" required>
 
-    <label>Apa yang paling kamu sukai di bidang IT?</label>
+    <label>Apa yang kamu sukai di IT?</label>
     <textarea id="minat" required></textarea>
 
-    <label>Apa saja yang sudah kamu pelajari di SMK?</label>
+    <label>Apa yang sudah kamu pelajari di SMK?</label>
     <textarea id="pengalaman" required></textarea>
 
     <button type="submit">Daftar Gratis</button>
   </form>
 
   <div class="success" id="successMsg">
-    ✅ Pendaftaran berhasil!  
-    <br>Terima kasih, admin akan menghubungi via WhatsApp.
+    ✅ Pendaftaran berhasil!<br>
+    Silakan gabung ke grup WhatsApp kursus:<br><br>
+    
+    <a class="wa-link" href="https://chat.whatsapp.com/BvrAMrPEHtG4SQYmBbLXyM?mode=gi_t" target="_blank">
+      👉 Gabung Grup WhatsApp
+    </a>
   </div>
 </div>
 
@@ -102,6 +114,7 @@
   form.addEventListener("submit", function(e) {
     e.preventDefault();
 
+    // (opsional) simpan lokal buat testing
     const data = {
       nama: document.getElementById("nama").value,
       wa: document.getElementById("wa").value,
@@ -110,17 +123,14 @@
       waktu: new Date().toLocaleString()
     };
 
-    let pendaftar = JSON.parse(localStorage.getItem("pendaftar_kursus")) || [];
-    pendaftar.push(data);
-    localStorage.setItem("pendaftar_kursus", JSON.stringify(pendaftar));
+    let list = JSON.parse(localStorage.getItem("pendaftar_kursus")) || [];
+    list.push(data);
+    localStorage.setItem("pendaftar_kursus", JSON.stringify(list));
 
     form.style.display = "none";
     successMsg.style.display = "block";
-
-    console.log("Data Pendaftar:", pendaftar);
   });
 </script>
 
 </body>
-    </html>
-
+</html>
